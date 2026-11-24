@@ -1,0 +1,126 @@
+
+/* General */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+}
+
+/* Sidebar navigation */
+.nav-link {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 13px;
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.nav-link svg {
+    width: 19px;
+    height: 19px;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: #ffffff;
+}
+
+.nav-link.active {
+    background: #4f46e5;
+    color: #ffffff;
+    box-shadow: 0 5px 15px rgba(79, 70, 229, 0.2);
+}
+
+/* Dashboard statistic cards */
+.stat-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    background: #ffffff;
+    padding: 22px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+}
+
+.stat-icon {
+    display: flex;
+    width: 46px;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+}
+
+.stat-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* Quick actions */
+.quick-action {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #f1f5f9;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.quick-action:hover {
+    border-color: #c7d2fe;
+    background: #eef2ff;
+}
+
+.quick-action-icon {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.quick-action-icon svg {
+    width: 19px;
+    height: 19px;
+}
+
+/* Smooth page transitions */
+.page-section {
+    animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile sidebar */
+@media (min-width: 1024px) {
+    #sidebar {
+        transform: translateX(0);
+    }
+}

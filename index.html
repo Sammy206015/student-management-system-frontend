@@ -1,0 +1,334 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Student Management System Dashboard">
+    <title>EduManage | Student Management System</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: "#eef2ff",
+                            100: "#e0e7ff",
+                            500: "#6366f1",
+                            600: "#4f46e5",
+                            700: "#4338ca",
+                            900: "#1e1b4b"
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Mobile sidebar overlay -->
+    <div id="sidebarOverlay"
+         class="fixed inset-0 z-40 hidden bg-slate-950/50 lg:hidden">
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="fixed inset-y-0 left-0 z-50 flex w-64 -translate-x-full flex-col bg-slate-950 text-white transition-transform duration-300 lg:translate-x-0">
+
+        <!-- Brand -->
+        <div class="flex h-20 items-center gap-3 border-b border-white/10 px-6">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500">
+                <i data-lucide="graduation-cap" class="h-6 w-6"></i>
+            </div>
+            <div>
+                <h1 class="text-lg font-bold tracking-tight">EduManage</h1>
+                <p class="text-xs text-slate-400">Administration portal</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 space-y-2 overflow-y-auto px-4 py-6">
+
+            <p class="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                Main menu
+            </p>
+
+            <button data-page="dashboard"
+                class="nav-link active">
+                <i data-lucide="layout-dashboard"></i>
+                <span>Dashboard</span>
+            </button>
+
+            <p class="mb-3 mt-8 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                Management
+            </p>
+
+            <button data-page="students" class="nav-link">
+                <i data-lucide="users"></i>
+                <span>Students</span>
+            </button>
+
+            <button data-page="departments" class="nav-link">
+                <i data-lucide="building-2"></i>
+                <span>Departments</span>
+            </button>
+
+            <button data-page="lecturers" class="nav-link">
+                <i data-lucide="user-round"></i>
+                <span>Lecturers</span>
+            </button>
+
+            <button data-page="courses" class="nav-link">
+                <i data-lucide="book-open"></i>
+                <span>Courses</span>
+            </button>
+
+            <button data-page="registrations" class="nav-link">
+                <i data-lucide="clipboard-list"></i>
+                <span>Registrations</span>
+            </button>
+        </nav>
+
+        <!-- Sidebar footer -->
+        <div class="border-t border-white/10 p-4">
+            <div class="flex items-center gap-3 rounded-xl bg-white/5 p-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-300">
+                    <i data-lucide="shield-check" class="h-5 w-5"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-semibold">Administrator</p>
+                    <p class="text-xs text-slate-400">Management dashboard</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main area -->
+    <div class="min-h-screen lg:pl-64">
+
+        <!-- Top navigation -->
+        <header class="sticky top-0 z-30 flex h-20 items-center justify-between border-b border-slate-200 bg-white/95 px-5 backdrop-blur-md sm:px-8">
+
+            <div class="flex items-center gap-4">
+                <button id="menuButton"
+                    class="rounded-lg p-2 text-slate-600 hover:bg-slate-100 lg:hidden"
+                    aria-label="Open navigation">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                </button>
+
+                <div>
+                    <h2 id="pageTitle" class="text-lg font-bold text-slate-900">
+                        Dashboard
+                    </h2>
+                    <p id="pageSubtitle" class="hidden text-xs text-slate-500 sm:block">
+                        Welcome to your student management workspace.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="hidden text-right sm:block">
+                    <p id="currentDate" class="text-sm font-semibold text-slate-700"></p>
+                    <p class="text-xs text-slate-400">Academic administration</p>
+                </div>
+
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 font-bold text-indigo-700">
+                    A
+                </div>
+            </div>
+        </header>
+
+        <!-- Main content -->
+        <main class="p-5 sm:p-8">
+
+            <!-- Dashboard page -->
+            <section id="dashboardPage" class="page-section">
+
+                <div class="mb-8">
+                    <p class="text-sm font-medium text-indigo-600">OVERVIEW</p>
+                    <h1 class="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                        Welcome back, Administrator
+                    </h1>
+                    <p class="mt-2 text-sm text-slate-500">
+                        Here's an overview of your institution's records.
+                    </p>
+                </div>
+
+                <!-- Statistics cards -->
+                <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+
+                    <div class="stat-card">
+                        <div class="flex items-center justify-between">
+                            <div class="stat-icon bg-indigo-100 text-indigo-600">
+                                <i data-lucide="users"></i>
+                            </div>
+                            <span class="text-xs font-medium text-slate-400">Total records</span>
+                        </div>
+                        <p class="mt-5 text-sm font-medium text-slate-500">Students</p>
+                        <h3 id="studentCount" class="mt-1 text-3xl font-bold text-slate-900">—</h3>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="flex items-center justify-between">
+                            <div class="stat-icon bg-emerald-100 text-emerald-600">
+                                <i data-lucide="building-2"></i>
+                            </div>
+                            <span class="text-xs font-medium text-slate-400">Total records</span>
+                        </div>
+                        <p class="mt-5 text-sm font-medium text-slate-500">Departments</p>
+                        <h3 id="departmentCount" class="mt-1 text-3xl font-bold text-slate-900">—</h3>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="flex items-center justify-between">
+                            <div class="stat-icon bg-amber-100 text-amber-600">
+                                <i data-lucide="user-round"></i>
+                            </div>
+                            <span class="text-xs font-medium text-slate-400">Total records</span>
+                        </div>
+                        <p class="mt-5 text-sm font-medium text-slate-500">Lecturers</p>
+                        <h3 id="lecturerCount" class="mt-1 text-3xl font-bold text-slate-900">—</h3>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="flex items-center justify-between">
+                            <div class="stat-icon bg-sky-100 text-sky-600">
+                                <i data-lucide="book-open"></i>
+                            </div>
+                            <span class="text-xs font-medium text-slate-400">Total records</span>
+                        </div>
+                        <p class="mt-5 text-sm font-medium text-slate-500">Courses</p>
+                        <h3 id="courseCount" class="mt-1 text-3xl font-bold text-slate-900">—</h3>
+                    </div>
+
+                </div>
+
+                <!-- Lower dashboard sections -->
+                <div class="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-3">
+
+                    <!-- Recent students -->
+                    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white xl:col-span-2">
+                        <div class="flex items-center justify-between border-b border-slate-100 px-6 py-5">
+                            <div>
+                                <h3 class="font-bold text-slate-900">Recent Students</h3>
+                                <p class="mt-1 text-xs text-slate-500">Recently added student records</p>
+                            </div>
+                            <button data-page="students"
+                                class="text-sm font-semibold text-indigo-600 hover:text-indigo-700">
+                                View all
+                            </button>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
+                                    <tr>
+                                        <th class="px-6 py-4 font-semibold">Student</th>
+                                        <th class="px-6 py-4 font-semibold">Matric number</th>
+                                        <th class="px-6 py-4 font-semibold">Department</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentStudents">
+                                    <tr>
+                                        <td colspan="3" class="px-6 py-10 text-center text-slate-400">
+                                            Student records will appear here when connected to the API.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Quick actions -->
+                    <div class="rounded-2xl border border-slate-200 bg-white p-6">
+                        <h3 class="font-bold text-slate-900">Quick Actions</h3>
+                        <p class="mt-1 text-xs text-slate-500">Manage your institution's records</p>
+
+                        <div class="mt-5 space-y-3">
+                            <button data-page="students" class="quick-action">
+                                <span class="quick-action-icon bg-indigo-100 text-indigo-600">
+                                    <i data-lucide="user-plus"></i>
+                                </span>
+                                <span class="flex-1 text-left">
+                                    <span class="block text-sm font-semibold">Manage Students</span>
+                                    <span class="block text-xs text-slate-400">Add or update students</span>
+                                </span>
+                                <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400"></i>
+                            </button>
+
+                            <button data-page="departments" class="quick-action">
+                                <span class="quick-action-icon bg-emerald-100 text-emerald-600">
+                                    <i data-lucide="building-2"></i>
+                                </span>
+                                <span class="flex-1 text-left">
+                                    <span class="block text-sm font-semibold">Departments</span>
+                                    <span class="block text-xs text-slate-400">Manage departments</span>
+                                </span>
+                                <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400"></i>
+                            </button>
+
+                            <button data-page="courses" class="quick-action">
+                                <span class="quick-action-icon bg-sky-100 text-sky-600">
+                                    <i data-lucide="book-open"></i>
+                                </span>
+                                <span class="flex-1 text-left">
+                                    <span class="block text-sm font-semibold">Courses</span>
+                                    <span class="block text-xs text-slate-400">Manage academic courses</span>
+                                </span>
+                                <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400"></i>
+                            </button>
+
+                            <button data-page="registrations" class="quick-action">
+                                <span class="quick-action-icon bg-amber-100 text-amber-600">
+                                    <i data-lucide="clipboard-list"></i>
+                                </span>
+                                <span class="flex-1 text-left">
+                                    <span class="block text-sm font-semibold">Registrations</span>
+                                    <span class="block text-xs text-slate-400">Manage course registrations</span>
+                                </span>
+                                <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Other management pages will be added in the next stages -->
+            <section id="managementPage" class="page-section hidden">
+                <div class="rounded-2xl border border-slate-200 bg-white px-6 py-16 text-center">
+                    <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
+                        <i data-lucide="construction" class="h-7 w-7"></i>
+                    </div>
+                    <h3 id="managementHeading" class="mt-5 text-xl font-bold text-slate-900">
+                        Management section
+                    </h3>
+                    <p class="mx-auto mt-2 max-w-md text-sm text-slate-500">
+                        This section is being prepared. We'll connect it to your API as we build the CRUD functionality.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="border-t border-slate-200 px-5 py-5 text-center text-xs text-slate-400 sm:px-8">
+            © 2026 EduManage. Student Management System.
+        </footer>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
